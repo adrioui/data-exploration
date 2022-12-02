@@ -9,5 +9,9 @@ df["time"] = pd.to_datetime(df["time"],unit="s")
 
 # How many channels are typically required for a single call? 
 
-filter = (df["userId"].value_counts() == 1)
-print(filter)
+# Group by user
+user_grp = df.groupby("userId")
+# Get how many channels each user uses to call
+print(user_grp["channelName"].value_counts())
+
+
