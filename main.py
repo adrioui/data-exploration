@@ -7,8 +7,21 @@ df = pd.read_csv("call_logging.csv")
 
 # How many channels are typically required for a single call? 
 
-# Group by user
-user_grp = df.groupby(["userId"])
+# Count the channels used for each customer
+# Deactivate multiindexing for easier use
+channels_used = df.groupby(["userId"], as_index=False)["channelName"].value_counts()
 
-# Get channels that were used only once by each user 
-print(user_grp["channelName"].value_counts().loc[lambda x: x == 1])
+# Count how many channels that were used only once for each customer
+counts_of_channels_used_only_once = channels_used.groupby(["userId"]).sum()
+
+# Convert groupby series to dataframe and reset the index
+user_df = pd.DataFrame(counts_of_channels_used_only_once).reset_index()
+
+# Rename one of its columns
+user_df.rename(columns={"count": "counts_of_channels_used_only_once"}, inplace=True)
+
+# Channels typically used for a single call
+# Use arithmetic mean because there is no outlier
+channels_typically_required_for_a_single_call = user_df["counts_of_channels_used_only_once"].mean(numeric_only=True)
+
+print(channels_typically_required_for_a_single_call)
