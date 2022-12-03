@@ -4,7 +4,6 @@ import pandas as pd
 # Load the csv file and convert it to be a pandas dataframe
 df = pd.read_csv("call_logging.csv")
 
-
 # How many channels are typically required for a single call? 
 
 # Count the channels used for each customer
