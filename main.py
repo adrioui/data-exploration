@@ -22,6 +22,4 @@ user_df.rename(columns={"count": "counts_of_channels_used_only_once"}, inplace=T
 
 # Channels typically used for a single call
 # Use arithmetic mean because there is no outlier
-channels_typically_required_for_a_single_call = user_df["counts_of_channels_used_only_once"].mean(numeric_only=True)
-
-print(channels_typically_required_for_a_single_call)
+answer_1 = channels_typically_required_for_a_single_call = int(user_df["counts_of_channels_used_only_once"].mean(numeric_only=True).round())
