@@ -4,6 +4,7 @@ import pandas as pd
 
 # Load the csv file and convert it to be a pandas dataframe
 df = pd.read_csv("call_logging.csv")
+df["time"] = pd.to_datetime(df["time"], unit="s")
 
 
 # How many channels are typically required for a single call? 
@@ -24,6 +25,3 @@ user_df.rename(columns={"count": "counts_of_channels_used_only_once"}, inplace=T
 # Channels typically used for a single call
 # Use arithmetic mean because there is no outlier
 answer_1 = channels_typically_required_for_a_single_call = int(user_df["counts_of_channels_used_only_once"].mean(numeric_only=True).round())
-
-
-# Can you provide a range for the duration of calls?
